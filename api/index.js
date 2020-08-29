@@ -1,25 +1,20 @@
 'use strict'
 
-require('dotenv').config();
-
+var dotenv = require('dotenv').config((__dirname, '.env'));
 
 const app = require('./app');
-
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-//const dbConnectionString = `mongodb://${ENV.DB_SERVER}:${ENV.DB_PORT}/${ENV.DB_NAME}`;
+const dbConnectionString = `mongodb://${process.env.DB_SERVER}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
-console.log(dbConnectionString);
-/*
-mongoose.connect(dbConnectionString, { useMongoClient: true})
+mongoose.connect(dbConnectionString, { useNewUrlParser: true,  useUnifiedTopology: true  })
 .then( ()=> {
     console.log(`Conexión a ${dbConnectionString} realizada exitosamente`);
 
-    app.listen(port, ()=>{
-        console.log(`Servidor corriendo en el puerto ${ENV.SERVER_PORT}`);
+    app.listen = (process.env.SERVER_PORT, ()=>{
+        console.log(`Servidor corriendo en el puerto ${process.env.SERVER_PORT}`);
     });
 })
 .catch(err => console.log(err));
 
-*/
